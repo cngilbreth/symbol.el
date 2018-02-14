@@ -11,7 +11,7 @@
 ;;  (2) Type a character and use the backtick ` key to cycle through associated
 ;;      symbols:
 ;;       a <backtick> --> α <backtick> --> a
-;;      (Ctrl-` will insert an actual backtick character)
+;;      (C-q ` will insert an actual backtick character)
 ;;  (3) If you like, customize the key used for this below.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -20,10 +20,7 @@
 
 (defvar symbol-hotkey (kbd "`") 
   "Hot key for cycle-symbols")
-
-(defvar symbol-hotkey-alt (kbd "C-`") 
-  "Keybinding to replace the hotkey used for cycle-symbols.
-  Set to nil if not needed.")
+;; Note: Use C-q ` to insert an actual backquote
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Supporting code for keybindings
@@ -31,13 +28,6 @@
 
 (global-set-key symbol-hotkey 'cycle-symbols)
 (define-key isearch-mode-map symbol-hotkey 'cycle-symbols-isearch)
-
-(defun insert-symbol-hotkey ()
-  (interactive)
-  (insert symbol-hotkey))
-
-(if symbol-hotkey-alt
-    (global-set-key symbol-hotkey-alt 'insert-symbol-hotkey))
 
 ;; Fortran mode seems to have some keybinding interrupting things
 (add-hook 'fortran-mode-hook
@@ -143,6 +133,7 @@
   ("approxgt"  ">~"    "≳" )
   ("divsign"   "/."    "÷" )
   ("timesx"    "*"     "×" )
+  ("cdot"      "."     "⋅" )
   ("sqroot"    "-/"    "√" )
   ("infty"     "@@"    "∞" )
   ("aleph"     "A"     "ℵ" )
@@ -150,14 +141,16 @@
   ("prime2"    "''"    "″" )
   ("prime3"    "'''"   "‴" )
   ("therefore" ":"     "∴" )
-  ("langle"    "("     "⟨" )
-  ("rangle"    ")"     "⟩" )
+  ("langle"    "<"     "⟨" )
+  ("rangle"    ">"     "⟩" )
   ("lceil"     "["     "⌈" )
   ("rceil"     "]"     "⌉" )
   ("lfloor"    "["     "⌊" )
   ("rfloor"    "]"     "⌋" )
   ("oplus"     "@+"    "⊕" )
   ("otimes"    "@x"    "⊗" )
+  ("union"     "|"     "∪" )
+  ("intersection" "&"  "∩" )  
   ;; Arrows
   ("rarrow"    "->"    "→" )
   ("darrow"    "->"    "↓" )
@@ -249,6 +242,7 @@
   ("rbracemid"  "{"    "⎬")
   ("rbracebot"  "{"    "⎭")
   ("rbraceext"  "{"    "⎮")
+  ("checkmark"  "/"    "✓")
    ))
 
 (setq symtable (make-hash-table :test 'equal))
@@ -314,7 +308,7 @@
      (1) (insert-symbol 'j' 'θ' 'j') yields
          |  j --> θ
          |  θ --> j
-     (2) (insert 'j' 'ϑ' 'j') then yields
+     (2) (insert-symbol 'j' 'ϑ' 'j') then yields
          |  j --> θ
          |  θ --> ϑ
          |  ϑ --> j
