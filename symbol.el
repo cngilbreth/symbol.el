@@ -1,7 +1,7 @@
 ;; symbol.el: Allows easy insertion of Greek letters and other symbols in Emacs,
 ;; following the input method used by TeXmacs.
 ;;
-;; Version: 0.2.1
+;; Version: 0.3
 ;;
 ;; Authors:
 ;;  Chris Gilbreth (cngilbreth@gmail.com), 2010-2012
